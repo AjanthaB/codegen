@@ -19,6 +19,7 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "esformatter": "^0.10.0",
+    "mysql": "^2.16.0",
     "rimraf": "^2.6.2"
   }
 }

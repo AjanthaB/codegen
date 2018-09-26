@@ -20,11 +20,25 @@ function generateModule() {
   controllerGenerator.generateControoler(moduleData.moduleName);
 }
 
-rimraf('./dist', (err) => {
-  if (err) throw err;
-  console.log('removed dist directory');
-  fs.mkdirSync('./dist');
-  generateModule();
+function start() {
+  rimraf('./dist', (err) => {
+    if (err) throw err;
+    console.log('removed dist directory');
+    fs.mkdirSync('./dist');
+    generateModule();
+  });
+}
+
+// start();
+
+const mysql = require('../db/mysql.connector');
+mysql.connect();
+mysql.getConnection().query('describe products', function (error, results, fields) {
+  if (error) throw error;
+  
+  const schema = require('../helpers/mysql.dataTransformer').transform(results);
+  console.log(schema);
+  mysql.disconnect();
 });
 
 
